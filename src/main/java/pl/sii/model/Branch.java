@@ -3,13 +3,11 @@ package pl.sii.model;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,28 +16,21 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class Client {
+public class Branch {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private Type type;
+    @Embedded
+    private City city;
 
-    private String name;
+    @OneToMany(mappedBy = "mainBranch", cascade = CascadeType.ALL)
+    private List<Car> mainCars = new ArrayList<>();
 
-    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
-    private List<Client> users = new ArrayList<>();
-
-    @ManyToOne
-    private Client organization;
-
-    public enum Type {
-        PERSON,
-        ORGANIZATION
-    }
+    @OneToMany(mappedBy = "currentBranch", cascade = CascadeType.ALL)
+    private List<Car> availableCars = new ArrayList<>();
 }

@@ -1,27 +1,25 @@
 package pl.sii.model;
 
-import java.util.ArrayList;
+import java.time.Instant;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
+@Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Client {
+public class Rent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,16 +28,17 @@ public class Client {
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    private String name;
+    private Instant startDate;
 
-    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)
-    private List<Client> users = new ArrayList<>();
+    private Instant endDate;
 
-    @ManyToOne
-    private Client organization;
+    private Integer rentDays;
+
+    @OneToMany
+    private List<Car> rentedCars;
 
     public enum Type {
-        PERSON,
-        ORGANIZATION
+        LONG,
+        SHORT
     }
 }

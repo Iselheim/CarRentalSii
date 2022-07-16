@@ -1,28 +1,39 @@
 package pl.sii;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import pl.sii.model.Branch;
+import pl.sii.model.Car;
+import pl.sii.model.City;
+import pl.sii.repository.BranchRepository;
+import pl.sii.repository.CarRepository;
+import pl.sii.repository.ClientRepository;
 
 @Service
 @AllArgsConstructor
 @Slf4j
 class DatabaseFillService {
 
-//    private final CarRepository carRepository;
-//    private final BranchRepository branchRepository;
-//    private final ClientRepository clientRepository;
+    private final CarRepository carRepository;
+    private final BranchRepository branchRepository;
+    private final ClientRepository clientRepository;
 //
-//    @PostConstruct
-//    public void init(){
-//
-//        addBranch("Warszawa");
-//        addBranch("Kraków");
-//        addBranch("Wrocław");
-//
+    @PostConstruct
+    public void init(){
+
+        addBranch("Warszawa");
+        addBranch("Kraków");
+        addBranch("Wrocław");
+
 //        addClients("Sii");
-//
-//    }
+
+    }
 //
 //    private void addClients(String orgName) {
 //        Client organization = Client.builder()
@@ -57,54 +68,54 @@ class DatabaseFillService {
 //        clientRepository.save(organization);
 //    }
 //
-//    private void addBranch(String cityName) {
-//        Branch branch = Branch.builder()
-//            .city(new City(cityName, "dasdas", "123123"))
-//            .mainCars(new ArrayList<>())
-//            .availableCars(new ArrayList<>())
-//            .build();
-//
-//        Car fiat = Car.builder()
-//            .currentBranch(branch)
-//            .mainBranch(branch)
-//            .equipmentType(Car.EquipmentType.LOW)
-//            .mark("FIAT")
-//            .price(new BigDecimal(50))
-//            .type(Car.Type.A)
-//            .build();
-//
-//        Car fiat2 = Car.builder()
-//            .currentBranch(branch)
-//            .mainBranch(branch)
-//            .equipmentType(Car.EquipmentType.MEDIUM)
-//            .mark("FIAT")
-//            .price(new BigDecimal(150))
-//            .type(Car.Type.C)
-//            .build();
-//
-//        Car bmw = Car.builder()
-//            .currentBranch(branch)
-//            .mainBranch(branch)
-//            .equipmentType(Car.EquipmentType.MEDIUM)
-//            .mark("BMW")
-//            .price(new BigDecimal(200))
-//            .type(Car.Type.D)
-//            .build();
-//
-//        Car bmw2 = Car.builder()
-//            .currentBranch(branch)
-//            .mainBranch(branch)
-//            .equipmentType(Car.EquipmentType.HIGH)
-//            .mark("BMW")
-//            .price(new BigDecimal(300))
-//            .type(Car.Type.PREMIUM)
-//            .build();
-//
-//        List<Car> cars = Arrays.asList(fiat, fiat2, bmw, bmw2);
-//        branch.getAvailableCars().addAll(cars);
-//        branch.getMainCars().addAll(cars);
-//
-//        branchRepository.save(branch);
-//    }
+    private void addBranch(String cityName) {
+        Branch branch = Branch.builder()
+            .city(new City(cityName, "dasdas", "123123"))
+            .mainCars(new ArrayList<>())
+            .availableCars(new ArrayList<>())
+            .build();
+
+        Car fiat = Car.builder()
+            .currentBranch(branch)
+            .mainBranch(branch)
+            .equipmentType(Car.EquipmentType.LOW)
+            .mark("FIAT")
+            .price(new BigDecimal(50))
+            .type(Car.Type.A)
+            .build();
+
+        Car fiat2 = Car.builder()
+            .currentBranch(branch)
+            .mainBranch(branch)
+            .equipmentType(Car.EquipmentType.MEDIUM)
+            .mark("FIAT")
+            .price(new BigDecimal(150))
+            .type(Car.Type.C)
+            .build();
+
+        Car bmw = Car.builder()
+            .currentBranch(branch)
+            .mainBranch(branch)
+            .equipmentType(Car.EquipmentType.MEDIUM)
+            .mark("BMW")
+            .price(new BigDecimal(200))
+            .type(Car.Type.D)
+            .build();
+
+        Car bmw2 = Car.builder()
+            .currentBranch(branch)
+            .mainBranch(branch)
+            .equipmentType(Car.EquipmentType.HIGH)
+            .mark("BMW")
+            .price(new BigDecimal(300))
+            .type(Car.Type.PREMIUM)
+            .build();
+
+        List<Car> cars = Arrays.asList(fiat, fiat2, bmw, bmw2);
+        branch.getAvailableCars().addAll(cars);
+        branch.getMainCars().addAll(cars);
+
+        branchRepository.save(branch);
+    }
 
 }

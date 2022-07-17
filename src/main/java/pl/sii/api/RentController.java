@@ -2,7 +2,6 @@ package pl.sii.api;
 
 import java.time.LocalDate;
 import java.util.List;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.Value;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import pl.sii.model.Rent;
 import pl.sii.services.RentService;
+import pl.sii.services.ReturnService;
 
 @RestController
 @Slf4j
@@ -19,11 +19,16 @@ import pl.sii.services.RentService;
 public class RentController {
 
     private final RentService rentService;
+    private final ReturnService returnService;
 
     @PostMapping("/rent")
-    public void rent(@RequestBody RentRequest rentRequest) {
-        log.error(rentRequest.toString());
-        rentService.rent(rentRequest);
+    public Long rent(@RequestBody RentRequest rentRequest) {
+        return rentService.rent(rentRequest);
+    }
+
+    @PostMapping("/return")
+    public Boolean returnCars(@RequestBody ReturnRequest returnRequest) {
+        return returnService.returnCars(returnRequest);
     }
 
     @Value
@@ -34,6 +39,12 @@ public class RentController {
         LocalDate startDate;
         Rent.Type type;
         Integer days;
+    }
+
+    @Value
+    public static class ReturnRequest {
+        Long rentId;
+        String branchName;
     }
 
 }

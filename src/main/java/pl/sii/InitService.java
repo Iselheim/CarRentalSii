@@ -2,7 +2,6 @@ package pl.sii;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
